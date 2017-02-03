@@ -81,6 +81,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let imageUrlString = photos[0].value(forKeyPath: "original_size.url") as? String
             if let imageUrl = URL(string: imageUrlString!) {
                 cell.photoView.setImageWith(imageUrl)
+                cell.timestamp.text = timestamp
          
         }
     }
