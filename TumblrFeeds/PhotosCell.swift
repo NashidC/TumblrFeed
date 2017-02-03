@@ -1,5 +1,5 @@
 //
-//  PhotosTableViewCell.swift
+//  PhotosCell.swift
 //  TumblrFeeds
 //
 //  Created by Nashid  on 2/2/17.
@@ -10,6 +10,11 @@ import UIKit
 
 class PhotosCell: UITableViewCell {
 
+
+    @IBOutlet weak var photoView: UIImageView!
+
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

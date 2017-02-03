@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
@@ -21,6 +22,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = 240;
         
         
         
@@ -47,6 +49,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
                           self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
                     }
                 }
+                self.tableView.reloadData()
         });
         task.resume()
     }
@@ -70,6 +73,17 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell", for: indexPath) as! PhotosCell
+        let post = posts?[indexPath.row]
+        let timestamp = post?["timestamp"] as? String
+        let photos = post?.value(forKeyPath: "photos") as? [NSDictionary]
+        
+        if let photos = post?.value(forKeyPath: "photos") as? [NSDictionary] {
+            let imageUrlString = photos[0].value(forKeyPath: "original_size.url") as? String
+            if let imageUrl = URL(string: imageUrlString!) {
+                cell.photoView.setImageWith(imageUrl)
+         
+        }
+    }
         
         return cell
     }
